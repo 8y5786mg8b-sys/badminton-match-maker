@@ -5,8 +5,16 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#071f28">
   <meta name="description" content="休憩・固定ペア・途中退出に対応した、偏りの少ないバドミントンダブルス対戦メーカー">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="対戦メーカー">
   <title>バドミントン 対戦メーカー</title>
+  <link rel="manifest" href="./manifest.webmanifest">
+  <link rel="icon" href="./icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="./icon-180.png">
   <link rel="stylesheet" href="./styles.css">
+  <link rel="stylesheet" href="./pwa.css">
 </head>
 <body>
   <header>
@@ -16,7 +24,10 @@
         <h1>対戦メーカー</h1>
         <p id="session-date"></p>
       </div>
-      <div class="score"><strong id="playable-count">0</strong><span>対戦可能</span></div>
+      <div class="header-actions">
+        <button id="install-app" class="install-app" type="button">▣ アプリに追加</button>
+        <div class="score"><strong id="playable-count">0</strong><span>対戦可能</span></div>
+      </div>
     </div>
   </header>
   <div id="message" class="message hidden" role="status"></div>

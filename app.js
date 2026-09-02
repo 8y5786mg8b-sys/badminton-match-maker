@@ -176,3 +176,17 @@ document.addEventListener("change", (e) => { const id = e.target.dataset?.check;
 document.addEventListener("click", (e) => { const target = e.target.closest("[data-action],[data-delete],[data-unpair],[data-team],#redo,#undo"); if (!target) return; if (target.dataset.action) setStatus(target.dataset.id, target.dataset.action); else if (target.dataset.delete) { state.players = state.players.filter((p) => p.id !== target.dataset.delete); state.pairs = state.pairs.filter((p) => p.a !== target.dataset.delete && p.b !== target.dataset.delete); render(); } else if (target.dataset.unpair) { state.pairs = state.pairs.filter((p) => p.id !== target.dataset.unpair); render(); } else if (target.dataset.team) toggleTeam(target.dataset.team.split("|")); else if (target.id === "redo") generate(true); else if (target.id === "undo") { state.rounds.pop(); showMessage("1つ前の対戦作成を取り消しました"); render(); } });
 function resetIfNewDay() { if (state.date === dateKey()) return; state.date = dateKey(); state.rounds = []; state.pairs = []; state.players.forEach((p) => { p.selected = false; p.status = "available"; }); showMessage("新しい日になったため、今日の組み合わせをリセットしました"); render(); }
 addEventListener("focus", resetIfNewDay); setInterval(resetIfNewDay, 60000); render();
+
+let installPrompt = null;
+const installButton = $("install-app");
+const standalone = matchMedia("(display-mode: standalone)").matches || navigator.standalone === true;
+if (standalone) installButton.classList.add("hidden");
+addEventListener("beforeinstallprompt", (event) => { event.preventDefault(); installPrompt = event; });
+addEventListener("appinstalled", () => { installPrompt = null; installButton.classList.add("hidden"); });
+installButton.addEventListener("click", async () => {
+  if (installPrompt) { installPrompt.prompt(); await installPrompt.userChoice; installPrompt = null; return; }
+  if (/iPad|iPhone|iPod/.test(navigator.userAgent)) alert("画面下の共有ボタンを押し、「ホーム画面に追加」→「追加」を選んでください。");
+  else alert("ブラウザのメニューから「アプリをインストール」または「ホーム画面に追加」を選んでください。");
+});
+
+if ("serviceWorker" in navigator) addEventListener("load", () => navigator.serviceWorker.register("./sw.js"));

@@ -1,0 +1,31 @@
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.install-app {
+  min-height: 40px;
+  padding: 8px 11px;
+  border: 1px solid #66e3b466;
+  border-radius: 12px;
+  background: #66e3b41f;
+  color: #9af2d0;
+  font-size: 12px;
+  font-weight: 800;
+}
+
+.install-app:hover { background: #66e3b433; }
+
+@media (max-width: 760px) {
+  .header-actions {
+    align-items: flex-end;
+    flex-direction: column-reverse;
+  }
+
+  .install-app {
+    min-height: 32px;
+    padding: 5px 8px;
+    font-size: 10px;
+  }
+}
