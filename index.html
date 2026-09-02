@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#071f28">
+  <meta name="description" content="休憩・固定ペア・途中退出に対応した、偏りの少ないバドミントンダブルス対戦メーカー">
+  <title>バドミントン 対戦メーカー</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header>
+    <div class="header-inner court-lines">
+      <div>
+        <div class="eyebrow"><i></i> BADMINTON DAY</div>
+        <h1>対戦メーカー</h1>
+        <p id="session-date"></p>
+      </div>
+      <div class="score"><strong id="playable-count">0</strong><span>対戦可能</span></div>
+    </div>
+  </header>
+  <div id="message" class="message hidden" role="status"></div>
+
+  <main>
+    <section class="left-column">
+      <div class="panel roster-panel">
+        <div class="section-head">
+          <div><h2>👥 参加者</h2><p id="member-summary">登録 0名 ／ 本日選択 0名</p></div>
+          <div class="small-actions"><button class="outline" id="select-all">全員選択</button><button class="ghost" id="clear-all">全解除</button></div>
+        </div>
+        <form id="add-form" class="add-form">
+          <input id="name-input" autocomplete="off" placeholder="名前を入力（読点・カンマで複数可）" aria-label="追加する参加者名">
+          <button class="primary" type="submit">＋ 追加</button>
+        </form>
+        <div class="share-actions">
+          <button class="outline" id="share-roster">↗ メンバー表を共有</button>
+          <button class="outline" id="import-button">⇧ 読み込む</button>
+          <input id="file-input" type="file" accept=".csv,text/csv" hidden>
+        </div>
+        <div id="empty-roster" class="empty"><b>まず参加者を登録</b><span>名前はこの端末に保存され、次回も使えます</span></div>
+        <div id="player-grid" class="player-grid"></div>
+      </div>
+
+      <div class="panel fixed-panel">
+        <h2>🔗 固定ペア</h2>
+        <p>解除するまで必ず同じチーム。片方が休憩・退出中は、もう片方もその回は待機します</p>
+        <div class="pair-pickers"><select id="pair-a" aria-label="固定ペアの1人目"></select><b>＋</b><select id="pair-b" aria-label="固定ペアの2人目"></select></div>
+        <button class="outline full" id="add-pair">＋ この2人を固定</button>
+        <div id="fixed-pairs" class="pair-chips"></div>
+      </div>
+    </section>
+
+    <section class="right-column">
+      <div class="panel round-panel">
+        <div class="round-head">
+          <div><small>CURRENT ROUND</small><h2 id="round-title">対戦待ち</h2></div>
+          <label>コート <select id="court-count" aria-label="使用するコート数"></select></label>
+        </div>
+        <div id="round-content"></div>
+      </div>
+      <details id="history-panel" class="panel history-panel hidden"><summary>↶ これまでの組み合わせ <span id="history-count"></span></summary><div id="history"></div></details>
+    </section>
+  </main>
+
+  <footer>
+    <div><b id="footer-summary">0名対戦可能</b><small>勝敗は記録せず、組み合わせの偏りだけを端末内で確認します</small></div>
+    <button class="primary next" id="generate">⇄ 次の対戦を作成</button>
+  </footer>
+  <script src="./app.js"></script>
+</body>
+</html>
